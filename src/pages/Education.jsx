@@ -108,32 +108,37 @@ export default function Education() {
                 </div>
 
                 {/* Progress Overview Card */}
-                <Card className="bg-neutral-900 text-white border-none bg-[url('https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1951&q=80')] bg-cover bg-center relative overflow-hidden">
-                    <div className="absolute inset-0 bg-neutral-900/90 backdrop-blur-sm"></div>
+                {/* Progress Overview Card */}
+                <Card className="bg-white text-neutral-900 border-none shadow-lg overflow-hidden relative card-nova">
+                    {/* Decorative Background */}
+                    <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none">
+                        <GraduationCap className="h-64 w-64 text-malachite-600 transform rotate-12" />
+                    </div>
+
                     <CardContent className="relative z-10 p-8 flex flex-col md:flex-row items-center justify-between gap-8">
                         <div className="space-y-4 flex-1">
-                            <div className="flex items-center gap-2 text-malachite-400 font-medium">
-                                <Trophy className="h-5 w-5" />
+                            <div className="flex items-center gap-2 text-malachite-600 font-bold bg-malachite-50 w-fit px-3 py-1 rounded-full text-sm">
+                                <Trophy className="h-4 w-4" />
                                 <span>Level {level} Scholar</span>
                             </div>
-                            <h2 className="text-3xl font-bold">Your Learning Path</h2>
-                            <div className="space-y-2">
-                                <div className="flex justify-between text-sm">
-                                    <span className="text-neutral-300">{completedCount} of {totalLessons} Lessons Completed</span>
-                                    <span className="text-white font-bold">{Math.round(completionPercentage)}%</span>
+                            <h2 className="text-3xl font-bold text-neutral-900">Your Learning Path</h2>
+                            <div className="space-y-2 max-w-md">
+                                <div className="flex justify-between text-sm font-medium">
+                                    <span className="text-neutral-500">{completedCount} of {totalLessons} Lessons Completed</span>
+                                    <span className="text-neutral-900">{Math.round(completionPercentage)}%</span>
                                 </div>
-                                <Progress value={completionPercentage} className="h-3 bg-neutral-700" indicatorColor="bg-malachite-500" />
+                                <Progress value={completionPercentage} className="h-3 bg-neutral-100" indicatorColor="bg-malachite-600" />
                             </div>
                         </div>
 
                         <div className="flex gap-4">
-                            <div className="bg-white/10 p-4 rounded-xl backdrop-blur-md border border-white/10 text-center min-w-[100px]">
-                                <div className="text-2xl font-bold text-white">{totalXPEarned}</div>
-                                <div className="text-xs text-neutral-400 uppercase tracking-wider mt-1">XP Earned</div>
+                            <div className="bg-white p-4 rounded-xl border border-neutral-200 shadow-sm text-center min-w-[120px]">
+                                <div className="text-3xl font-bold text-neutral-900">{totalXPEarned}</div>
+                                <div className="text-xs text-neutral-500 uppercase tracking-wider mt-1 font-semibold">XP Earned</div>
                             </div>
-                            <div className="bg-white/10 p-4 rounded-xl backdrop-blur-md border border-white/10 text-center min-w-[100px]">
-                                <div className="text-2xl font-bold text-malachite-400">{completedCount}</div>
-                                <div className="text-xs text-neutral-400 uppercase tracking-wider mt-1">Badges</div>
+                            <div className="bg-white p-4 rounded-xl border border-neutral-200 shadow-sm text-center min-w-[120px]">
+                                <div className="text-3xl font-bold text-malachite-600">{completedCount}</div>
+                                <div className="text-xs text-neutral-500 uppercase tracking-wider mt-1 font-semibold">Badges</div>
                             </div>
                         </div>
                     </CardContent>

@@ -86,7 +86,7 @@ export default function LessonDialog({ open, onOpenChange, lesson, quizzes = [],
                             </DialogDescription>
                         </DialogHeader>
 
-                        <div className="prose prose-neutral max-w-none dark:prose-invert py-4">
+                        <div className="prose prose-neutral max-w-none py-4">
                             <ReactMarkdown>{lesson?.content}</ReactMarkdown>
                         </div>
 

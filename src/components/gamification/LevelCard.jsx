@@ -14,17 +14,17 @@ export default function LevelCard({ level, xp }) {
     const progressPercent = Math.min((progressInLevel / totalInLevel) * 100, 100)
 
     return (
-        <Card className="border-slate-200 dark:border-slate-800 shadow-sm">
+        <Card className="border-slate-200 shadow-sm">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-sm font-medium text-slate-500 dark:text-slate-400">
+                <CardTitle className="text-sm font-medium text-slate-500">
                     Current Level
                 </CardTitle>
                 <Trophy className="h-4 w-4 text-yellow-500" />
             </CardHeader>
             <CardContent>
-                <div className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-2">Level {level}</div>
+                <div className="text-2xl font-bold text-slate-900 mb-2">Level {level}</div>
                 <Progress value={progressPercent} className="h-2 mb-2" indicatorColor="bg-yellow-500" />
-                <p className="text-xs text-slate-500 dark:text-slate-400">
+                <p className="text-xs text-slate-500">
                     {xp} / {nextThreshold} XP to Level {level + 1}
                 </p>
             </CardContent>

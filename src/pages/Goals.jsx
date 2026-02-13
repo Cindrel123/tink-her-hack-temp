@@ -143,7 +143,7 @@ export default function Goals() {
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                     <div>
                         <h1 className="text-3xl font-bold tracking-tight">Financial Goals</h1>
-                        <p className="text-slate-500 dark:text-slate-400 mt-2">
+                        <p className="text-slate-500 mt-2">
                             Set targets and track your journey to financial freedom.
                         </p>
                     </div>
@@ -225,13 +225,13 @@ export default function Goals() {
                                     <CardHeader className="pb-3 relative z-10">
                                         <div className="flex justify-between items-start">
                                             <div>
-                                                <CardTitle className="text-xl font-bold text-slate-800 dark:text-slate-100">{goal.goal_name}</CardTitle>
-                                                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Target: {new Date(goal.target_date).toLocaleDateString()}</p>
+                                                <CardTitle className="text-xl font-bold text-slate-800">{goal.goal_name}</CardTitle>
+                                                <p className="text-xs text-slate-500 mt-1">Target: {new Date(goal.target_date).toLocaleDateString()}</p>
                                             </div>
                                             {isAchieved ? (
-                                                <Badge className="bg-green-100 text-green-700 hover:bg-green-200 border-green-200 dark:bg-green-900/30 dark:text-green-400 dark:border-green-800">Achieved 🎉</Badge>
+                                                <Badge className="bg-green-100 text-green-700 hover:bg-green-200 border-green-200">Achieved 🎉</Badge>
                                             ) : (
-                                                <Badge variant="outline" className={daysRemaining < 30 ? "bg-red-50 text-red-600 border-red-200 dark:bg-red-900/20 dark:text-red-400 dark:border-red-800" : "bg-slate-50 text-slate-600 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700"}>
+                                                <Badge variant="outline" className={daysRemaining < 30 ? "bg-red-50 text-red-600 border-red-200" : "bg-slate-50 text-slate-600"}>
                                                     {daysRemaining > 0 ? `${daysRemaining} days left` : 'Due'}
                                                 </Badge>
                                             )}
@@ -240,32 +240,32 @@ export default function Goals() {
                                     <CardContent className="space-y-6 flex-1 relative z-10">
                                         <div className="space-y-2">
                                             <div className="flex justify-between text-sm">
-                                                <span className="text-slate-600 dark:text-slate-300 font-medium">Progress</span>
-                                                <span className={cn("font-bold", isAchieved ? "text-green-600 dark:text-green-400" : "text-blue-600 dark:text-blue-400")}>{progress.toFixed(0)}%</span>
+                                                <span className="text-slate-600 font-medium">Progress</span>
+                                                <span className={cn("font-bold", isAchieved ? "text-green-600" : "text-blue-600")}>{progress.toFixed(0)}%</span>
                                             </div>
                                             <Progress
                                                 value={progress}
-                                                className="h-3 bg-slate-100 dark:bg-slate-800"
+                                                className="h-3 bg-slate-100"
                                                 indicatorColor={isAchieved ? "bg-green-500" : progress > 50 ? "bg-blue-500" : "bg-blue-400"}
                                             />
                                         </div>
 
-                                        <div className="grid grid-cols-2 gap-4 text-sm bg-slate-50 dark:bg-slate-900/50 p-3 rounded-lg border border-slate-100 dark:border-slate-800">
+                                        <div className="grid grid-cols-2 gap-4 text-sm bg-slate-50 p-3 rounded-lg border border-slate-100">
                                             <div>
-                                                <p className="text-slate-500 dark:text-slate-400 text-xs uppercase tracking-wider font-semibold">Target</p>
-                                                <p className="font-bold text-lg text-slate-900 dark:text-slate-100">${Number(goal.target_amount).toLocaleString()}</p>
+                                                <p className="text-slate-500 text-xs uppercase tracking-wider font-semibold">Target</p>
+                                                <p className="font-bold text-lg text-slate-900">${Number(goal.target_amount).toLocaleString()}</p>
                                             </div>
                                             <div>
-                                                <p className="text-slate-500 dark:text-slate-400 text-xs uppercase tracking-wider font-semibold">Saved</p>
-                                                <p className={cn("font-bold text-lg", isAchieved ? "text-green-600 dark:text-green-400" : "text-blue-600 dark:text-blue-400")}>
+                                                <p className="text-slate-500 text-xs uppercase tracking-wider font-semibold">Saved</p>
+                                                <p className={cn("font-bold text-lg", isAchieved ? "text-green-600" : "text-blue-600")}>
                                                     ${Number(goal.current_amount).toLocaleString()}
                                                 </p>
                                             </div>
                                         </div>
 
                                         {!isAchieved && (
-                                            <div className="text-center text-sm text-slate-500 dark:text-slate-400">
-                                                <span className="font-semibold text-slate-700 dark:text-slate-200">${remaining.toLocaleString()}</span> to go!
+                                            <div className="text-center text-sm text-slate-500">
+                                                <span className="font-semibold text-slate-700">${remaining.toLocaleString()}</span> to go!
                                             </div>
                                         )}
                                     </CardContent>

@@ -88,9 +88,7 @@
     }
 
     /* Remove dark mode support - force light theme */
-    .dark {
-        display: none;
-    }
+
 }
 
 @layer components {

@@ -19,7 +19,7 @@ function App() {
       <AuthProvider>
         <GamificationProvider>
           <FinancialCalculatorProvider>
-            <Toaster position="top-center" richColors />
+            <Toaster position="top-center" richColors theme="light" />
             <Routes>
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />

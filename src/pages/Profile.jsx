@@ -9,7 +9,7 @@ export default function Profile() {
             <div className="space-y-6">
                 <div>
                     <h1 className="text-3xl font-bold tracking-tight">Profile</h1>
-                    <p className="text-slate-500 dark:text-slate-400 mt-2">
+                    <p className="text-slate-500 mt-2">
                         Manage your account settings and preferences.
                     </p>
                 </div>

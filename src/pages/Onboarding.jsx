@@ -114,7 +114,7 @@ export default function Onboarding() {
     const progress = step === 1 ? 50 : 100
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center p-4">
+        <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
             <Card className="w-full max-w-lg shadow-lg">
                 <CardHeader>
                     <div className="flex justify-between items-center mb-4">
