@@ -1,21 +1,51 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { AuthProvider } from '@/hooks/useAuth'
+import ProtectedRoute from '@/components/ProtectedRoute'
 import Dashboard from '@/pages/Dashboard'
 import Goals from '@/pages/Goals'
 import Education from '@/pages/Education'
 import Challenges from '@/pages/Challenges'
 import Profile from '@/pages/Profile'
+import Login from '@/pages/Login'
+import Signup from '@/pages/Signup'
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Navigate to="/dashboard" replace />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/goals" element={<Goals />} />
-        <Route path="/education" element={<Education />} />
-        <Route path="/challenges" element={<Challenges />} />
-        <Route path="/profile" element={<Profile />} />
-      </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+
+          <Route path="/dashboard" element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          } />
+          <Route path="/goals" element={
+            <ProtectedRoute>
+              <Goals />
+            </ProtectedRoute>
+          } />
+          <Route path="/education" element={
+            <ProtectedRoute>
+              <Education />
+            </ProtectedRoute>
+          } />
+          <Route path="/challenges" element={
+            <ProtectedRoute>
+              <Challenges />
+            </ProtectedRoute>
+          } />
+          <Route path="/profile" element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          } />
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
   )
 }

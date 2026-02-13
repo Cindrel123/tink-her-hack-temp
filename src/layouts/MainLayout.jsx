@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { cn } from '@/lib/utils'
+import { useAuth } from '@/hooks/useAuth'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-import { LayoutDashboard, Target, GraduationCap, Trophy, User, Menu } from 'lucide-react'
+import { LayoutDashboard, Target, GraduationCap, Trophy, User, Menu, LogOut } from 'lucide-react'
 
 const sidebarItems = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard' },
@@ -16,6 +17,14 @@ const sidebarItems = [
 export default function MainLayout({ children }) {
     const location = useLocation()
     const [isMobileOpen, setIsMobileOpen] = useState(false)
+
+    const { user, signOut } = useAuth()
+    const navigate = useNavigate()
+
+    const handleLogout = async () => {
+        await signOut()
+        navigate('/login')
+    }
 
     const NavContent = () => (
         <div className="flex flex-col h-full">
@@ -48,16 +57,20 @@ export default function MainLayout({ children }) {
                     )
                 })}
             </nav>
-            <div className="p-6 mt-auto border-t">
+            <div className="p-6 mt-auto border-t space-y-4">
                 <div className="flex items-center gap-3">
                     <div className="h-8 w-8 rounded-full bg-slate-200 flex items-center justify-center">
                         <User className="h-4 w-4 text-slate-500" />
                     </div>
-                    <div className="text-sm">
-                        <p className="font-medium">User Name</p>
-                        <p className="text-slate-500 text-xs">user@example.com</p>
+                    <div className="text-sm overflow-hidden">
+                        <p className="font-medium truncate">{user?.email?.split('@')[0] || 'User'}</p>
+                        <p className="text-slate-500 text-xs truncate">{user?.email || 'user@example.com'}</p>
                     </div>
                 </div>
+                <Button variant="outline" className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50" onClick={handleLogout}>
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Logout
+                </Button>
             </div>
         </div>
     )
