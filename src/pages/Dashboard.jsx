@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import MainLayout from '@/layouts/MainLayout'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
 import { useAuth } from '@/hooks/useAuth'
 import AIAdviceCard from '@/components/dashboard/AIAdviceCard'
 import { useGamification } from '@/hooks/useGamification'
@@ -10,6 +11,7 @@ import FinancialScoreCard from '@/components/gamification/FinancialScoreCard'
 import BadgeGrid from '@/components/gamification/BadgeGrid'
 import RewardDialog from '@/components/gamification/RewardDialog'
 import FinancialPlanCard from '@/components/financial/FinancialPlanCard'
+import { DollarSign, TrendingUp, PiggyBank, Target, Trophy, Zap } from 'lucide-react'
 
 export default function Dashboard() {
     const { user } = useAuth()
@@ -38,91 +40,157 @@ export default function Dashboard() {
                 title="Level Up!"
                 message={rewardMessage}
             />
-            <div className="space-y-6">
+
+            <div className="space-y-8">
+                {/* Header Section */}
                 <div>
-                    <h1 className="text-3xl font-bold tracking-tight text-neutral-900">Dashboard</h1>
+                    <h1 className="text-3xl font-bold tracking-tight text-neutral-900">Overview</h1>
                     <p className="text-neutral-500 mt-2">
-                        Welcome back to your financial journey.
+                        Here's what's happening with your finance today.
                     </p>
                 </div>
 
-                {/* Gamification Section */}
-                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                    <LevelCard level={level} xp={xp} />
-                    <FinancialScoreCard score={score} />
-                    <Card className="border-neutral-200 shadow-sm">
-                        <CardHeader className="flex flex-row items-center justify-between pb-2">
-                            <CardTitle className="text-sm font-medium text-neutral-500">
-                                Total XP
-                            </CardTitle>
+                {/* 1. Top Row: Quick Stats (Bento Row 1) */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {/* Stat 1 */}
+                    <Card className="card-nova border-none shadow-sm">
+                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                            <CardTitle className="text-sm font-medium text-neutral-500">Total Balance</CardTitle>
+                            <div className="h-8 w-8 rounded-full bg-malachite-50 flex items-center justify-center text-malachite-600">
+                                <DollarSign className="h-4 w-4" />
+                            </div>
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold text-neutral-900">{xp} XP</div>
-                            <p className="text-xs text-neutral-500 mt-1">
-                                Keep earning to level up!
+                            <div className="text-2xl font-bold text-neutral-900">$45,231.89</div>
+                            <p className="text-xs text-malachite-600 flex items-center mt-1">
+                                <TrendingUp className="h-3 w-3 mr-1" />
+                                +20.1% from last month
+                            </p>
+                        </CardContent>
+                    </Card>
+
+                    {/* Stat 2 */}
+                    <Card className="card-nova border-none shadow-sm">
+                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                            <CardTitle className="text-sm font-medium text-neutral-500">Monthly Savings</CardTitle>
+                            <div className="h-8 w-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
+                                <PiggyBank className="h-4 w-4" />
+                            </div>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="text-2xl font-bold text-neutral-900">$2,350.00</div>
+                            <p className="text-xs text-malachite-600 flex items-center mt-1">
+                                <TrendingUp className="h-3 w-3 mr-1" />
+                                +4% from last month
+                            </p>
+                        </CardContent>
+                    </Card>
+
+                    {/* Stat 3 */}
+                    <Card className="card-nova border-none shadow-sm">
+                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                            <CardTitle className="text-sm font-medium text-neutral-500">Active Goals</CardTitle>
+                            <div className="h-8 w-8 rounded-full bg-orange-50 flex items-center justify-center text-orange-600">
+                                <Target className="h-4 w-4" />
+                            </div>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="text-2xl font-bold text-neutral-900">4</div>
+                            <p className="text-xs text-neutral-500 mt-1">2 nearing completion</p>
+                        </CardContent>
+                    </Card>
+
+                    {/* Stat 4 */}
+                    <Card className="card-nova border-none shadow-sm">
+                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                            <CardTitle className="text-sm font-medium text-neutral-500">Challenges Won</CardTitle>
+                            <div className="h-8 w-8 rounded-full bg-purple-50 flex items-center justify-center text-purple-600">
+                                <Trophy className="h-4 w-4" />
+                            </div>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="text-2xl font-bold text-neutral-900">12</div>
+                            <p className="text-xs text-malachite-600 flex items-center mt-1">
+                                <TrendingUp className="h-3 w-3 mr-1" />
+                                +2 from last month
                             </p>
                         </CardContent>
                     </Card>
                 </div>
 
-                {/* AI Financial Mentor Section */}
-                <div className="w-full">
-                    <AIAdviceCard
-                        userId={user?.id}
-                        userProfile={profile}
-                        userGoals={goals}
-                        userGamification={{ level, score }}
-                        userPlan={financialPlan}
-                    />
-                </div>
+                {/* 2. Main Grid Layout */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
 
-                {/* Financial Plan Section */}
-                <div>
-                    <h2 className="text-2xl font-bold tracking-tight mb-4">Your Financial Plan</h2>
-                    <FinancialPlanCard financialPlan={financialPlan} profile={profile} />
-                </div>
+                    {/* LEFT COLUMN (Wide) */}
+                    <div className="lg:col-span-8 space-y-8">
 
-                {/* Badges Section */}
-                <BadgeGrid userBadges={badges} />
+                        {/* Financial Plan Section */}
+                        <section className="space-y-4">
+                            <div className="flex items-center justify-between">
+                                <h2 className="text-lg font-bold text-neutral-800">Financial Health</h2>
+                                <Button variant="ghost" className="text-malachite-600 hover:text-malachite-700 hover:bg-malachite-50 text-sm">
+                                    View Detailed Report
+                                </Button>
+                            </div>
+                            <FinancialPlanCard financialPlan={financialPlan} profile={profile} />
+                        </section>
 
-                {/* Original Stats */}
-                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                    <Card>
-                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">Total Balance</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="text-2xl font-bold">$45,231.89</div>
-                            <p className="text-xs text-neutral-500">+20.1% from last month</p>
-                        </CardContent>
-                    </Card>
-                    <Card>
-                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">Monthly Savings</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="text-2xl font-bold">$2,350.00</div>
-                            <p className="text-xs text-neutral-500">+180.1% from last month</p>
-                        </CardContent>
-                    </Card>
-                    <Card>
-                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">Active Goals</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="text-2xl font-bold">4</div>
-                            <p className="text-xs text-neutral-500">2 nearing completion</p>
-                        </CardContent>
-                    </Card>
-                    <Card>
-                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">Challenges Won</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="text-2xl font-bold">12</div>
-                            <p className="text-xs text-neutral-500">+2 from last month</p>
-                        </CardContent>
-                    </Card>
+                        {/* AI Advisor Section */}
+                        <section className="space-y-4">
+                            <div className="flex items-center justify-between">
+                                <h2 className="text-lg font-bold text-neutral-800">AI Mentor Insights</h2>
+                            </div>
+                            <AIAdviceCard
+                                userId={user?.id}
+                                userProfile={profile}
+                                userGoals={goals}
+                                userGamification={{ level, score }}
+                                userPlan={financialPlan}
+                            />
+                        </section>
+                    </div>
+
+                    {/* RIGHT COLUMN (Narrow) */}
+                    <div className="lg:col-span-4 space-y-8">
+
+                        {/* Gamification Status */}
+                        <section className="space-y-4">
+                            <h2 className="text-lg font-bold text-neutral-800">Your Progress</h2>
+
+                            {/* Level Card */}
+                            <div className="transform transition-all duration-300 hover:scale-[1.02]">
+                                <LevelCard level={level} xp={xp} />
+                            </div>
+
+                            {/* Financial Score */}
+                            <div className="transform transition-all duration-300 hover:scale-[1.02]">
+                                <FinancialScoreCard score={score} />
+                            </div>
+                        </section>
+
+                        {/* Recent Badges */}
+                        <section className="space-y-4">
+                            <div className="flex items-center justify-between">
+                                <h2 className="text-lg font-bold text-neutral-800">Recent Badges</h2>
+                                <Button variant="link" className="text-malachite-600 h-auto p-0">View All</Button>
+                            </div>
+                            <div className="bg-white rounded-xl border border-neutral-200 p-4 shadow-sm">
+                                <BadgeGrid userBadges={badges.slice(0, 4)} />
+                            </div>
+                        </section>
+
+                        {/* Upgrade / Promo Card (Common in dashboard designs) */}
+                        <div className="bg-gradient-to-br from-neutral-900 to-neutral-800 rounded-2xl p-6 text-white text-center space-y-4 shadow-lg">
+                            <div className="h-12 w-12 bg-white/10 rounded-full flex items-center justify-center mx-auto backdrop-blur-sm">
+                                <Zap className="h-6 w-6 text-yellow-400" />
+                            </div>
+                            <h3 className="font-bold text-lg">Go Premium</h3>
+                            <p className="text-neutral-400 text-sm">Unlock advanced AI insights and unlimited goal tracking.</p>
+                            <Button className="w-full bg-white text-neutral-900 hover:bg-neutral-100 border-none">
+                                Upgrade Plan
+                            </Button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </MainLayout>
