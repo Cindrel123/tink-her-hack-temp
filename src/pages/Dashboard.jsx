@@ -11,6 +11,7 @@ import FinancialScoreCard from '@/components/gamification/FinancialScoreCard'
 import BadgeGrid from '@/components/gamification/BadgeGrid'
 import RewardDialog from '@/components/gamification/RewardDialog'
 import FinancialPlanCard from '@/components/financial/FinancialPlanCard'
+import EducationProgressCard from '@/components/education/EducationProgressCard'
 import { DollarSign, TrendingUp, PiggyBank, Target, Trophy, Zap } from 'lucide-react'
 
 export default function Dashboard() {
@@ -152,6 +153,11 @@ export default function Dashboard() {
 
                     {/* RIGHT COLUMN (Narrow) */}
                     <div className="lg:col-span-4 space-y-8">
+
+                        {/* Education Progress Widget */}
+                        <div className="transform transition-all duration-300 hover:scale-[1.02]">
+                            <EducationProgressCard />
+                        </div>
 
                         {/* Gamification Status */}
                         <section className="space-y-4">
