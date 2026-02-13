@@ -35,7 +35,7 @@ export default function Signup() {
             if (error) throw error
             // Supabase defaults to auto-login on signup unless email confirm is on.
             // Assuming auto-login or redirect to dashboard directly.
-            navigate('/dashboard')
+            navigate('/onboarding')
         } catch (err) {
             setError(err.message)
         } finally {

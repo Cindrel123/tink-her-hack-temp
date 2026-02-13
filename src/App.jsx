@@ -8,6 +8,7 @@ import Challenges from '@/pages/Challenges'
 import Profile from '@/pages/Profile'
 import Login from '@/pages/Login'
 import Signup from '@/pages/Signup'
+import Onboarding from '@/pages/Onboarding'
 
 function App() {
   return (
@@ -16,6 +17,11 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/onboarding" element={
+            <ProtectedRoute>
+              <Onboarding />
+            </ProtectedRoute>
+          } />
 
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
 

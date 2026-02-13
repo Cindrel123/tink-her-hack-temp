@@ -23,7 +23,15 @@ export default function Login() {
         try {
             const { error } = await signIn(email, password)
             if (error) throw error
-            navigate('/dashboard')
+            if (error) throw error
+
+            // Check if profile exists (Mock check)
+            const hasProfile = localStorage.getItem('financialProfile')
+            if (hasProfile) {
+                navigate('/dashboard')
+            } else {
+                navigate('/onboarding')
+            }
         } catch (err) {
             setError(err.message)
         } finally {
