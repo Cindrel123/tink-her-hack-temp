@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '@/hooks/useAuth'
+import { useGamification } from '@/hooks/useGamification'
+import { useFinancialCalculator } from '@/hooks/useFinancialCalculator'
 import { supabase } from '@/lib/supabase'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -11,6 +13,8 @@ import { AlertCircle, CheckCircle2 } from 'lucide-react'
 
 export default function Onboarding() {
     const { user } = useAuth()
+    const { addXP, calculateScore } = useGamification()
+    const { generateFinancialPlan } = useFinancialCalculator()
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
@@ -91,8 +95,10 @@ export default function Onboarding() {
             // Mock Persistence
             localStorage.setItem('financialProfile', JSON.stringify(profileData))
 
-            // Award XP placeholder
-            console.log("Awarded +50 XP!")
+            // Award XP for completing profile
+            addXP(50)
+            calculateScore() // Recalculate financial score with new data
+            generateFinancialPlan() // Generate personalized financial plan
 
             // Redirect
             navigate('/goals')
