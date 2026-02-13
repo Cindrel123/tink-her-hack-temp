@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import MainLayout from '@/layouts/MainLayout'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
+import { useAuth } from '@/hooks/useAuth'
+import AIAdviceCard from '@/components/dashboard/AIAdviceCard'
 import { useGamification } from '@/hooks/useGamification'
 import { useFinancialCalculator } from '@/hooks/useFinancialCalculator'
 import LevelCard from '@/components/gamification/LevelCard'
@@ -10,14 +12,21 @@ import RewardDialog from '@/components/gamification/RewardDialog'
 import FinancialPlanCard from '@/components/financial/FinancialPlanCard'
 
 export default function Dashboard() {
+    const { user } = useAuth()
     const { xp, level, score, badges, showReward, setShowReward, rewardMessage } = useGamification()
     const { financialPlan } = useFinancialCalculator()
+    const [goals, setGoals] = useState([])
     const [profile, setProfile] = useState({})
 
     useEffect(() => {
         const storedProfile = localStorage.getItem('financialProfile')
         if (storedProfile) {
             setProfile(JSON.parse(storedProfile))
+        }
+
+        const storedGoals = localStorage.getItem('financialGoals')
+        if (storedGoals) {
+            setGoals(JSON.parse(storedGoals))
         }
     }, [])
 
@@ -54,6 +63,17 @@ export default function Dashboard() {
                             </p>
                         </CardContent>
                     </Card>
+                </div>
+
+                {/* AI Financial Mentor Section */}
+                <div className="w-full">
+                    <AIAdviceCard
+                        userId={user?.id}
+                        userProfile={profile}
+                        userGoals={goals}
+                        userGamification={{ level, score }}
+                        userPlan={financialPlan}
+                    />
                 </div>
 
                 {/* Financial Plan Section */}
