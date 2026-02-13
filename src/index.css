@@ -1,1 +1,167 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+@theme {
+    /* Malachite Color Palette */
+    --color-malachite-50: #f0fdf4;
+    --color-malachite-100: #dcfce6;
+    --color-malachite-200: #bcf6ce;
+    --color-malachite-300: #87eea9;
+    --color-malachite-400: #4cdc7c;
+    --color-malachite-500: #2ed867;
+    --color-malachite-600: #18a147;
+    --color-malachite-700: #177e3a;
+    --color-malachite-800: #176431;
+    --color-malachite-900: #15522b;
+    --color-malachite-950: #062d15;
+
+    /* Font Family */
+    --font-family-sans: 'Roboto', system-ui, -apple-system, sans-serif;
+
+    /* Border Radius - Default */
+    --radius-sm: 0.375rem;
+    --radius: 0.5rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
+}
+
+@layer base {
+    :root {
+        /* Light Theme Colors - Nova Style */
+        --background: 0 0% 100%;
+        --foreground: 240 10% 3.9%;
+
+        --card: 0 0% 100%;
+        --card-foreground: 240 10% 3.9%;
+
+        --popover: 0 0% 100%;
+        --popover-foreground: 240 10% 3.9%;
+
+        /* Primary: Malachite-600 */
+        --primary: 145 70% 37%;
+        --primary-foreground: 0 0% 100%;
+
+        /* Secondary: Neutral */
+        --secondary: 240 4.8% 95.9%;
+        --secondary-foreground: 240 5.9% 10%;
+
+        /* Muted: Subtle backgrounds */
+        --muted: 240 4.8% 95.9%;
+        --muted-foreground: 240 3.8% 46.1%;
+
+        /* Accent: Malachite-100 */
+        --accent: 145 90% 93%;
+        --accent-foreground: 145 70% 37%;
+
+        /* Destructive */
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 0 0% 98%;
+
+        /* Border */
+        --border: 240 5.9% 90%;
+        --input: 240 5.9% 90%;
+        --ring: 145 70% 37%;
+
+        /* Chart colors using malachite palette */
+        --chart-1: 145 70% 37%;
+        --chart-2: 145 60% 50%;
+        --chart-3: 145 80% 65%;
+        --chart-4: 145 70% 80%;
+        --chart-5: 145 60% 90%;
+
+        /* Radius */
+        --radius: 0.5rem;
+    }
+
+    * {
+        border-color: hsl(var(--border));
+    }
+
+    body {
+        background-color: hsl(var(--background));
+        color: hsl(var(--foreground));
+        font-family: 'Roboto', system-ui, -apple-system, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-feature-settings: "rlig" 1, "calt" 1;
+    }
+
+    /* Remove dark mode support - force light theme */
+    .dark {
+        display: none;
+    }
+}
+
+@layer components {
+
+    /* Nova-style card enhancements */
+    .card-nova {
+        background-color: white;
+        border: 1px solid hsl(var(--border));
+        box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        transition: box-shadow 200ms;
+    }
+
+    .card-nova:hover {
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    }
+
+    /* Subtle menu accent */
+    .menu-item {
+        color: hsl(var(--muted-foreground));
+        transition: color 150ms, background-color 150ms;
+    }
+
+    .menu-item:hover {
+        color: hsl(var(--foreground));
+        background-color: hsl(var(--accent) / 0.5);
+    }
+
+    /* Primary button with malachite */
+    .btn-primary {
+        background-color: var(--color-malachite-600);
+        color: white;
+        transition: background-color 150ms;
+    }
+
+    .btn-primary:hover {
+        background-color: var(--color-malachite-700);
+    }
+
+    .btn-primary:active {
+        background-color: var(--color-malachite-800);
+    }
+
+    /* Success states using malachite */
+    .success {
+        background-color: var(--color-malachite-50);
+        color: var(--color-malachite-700);
+        border-color: var(--color-malachite-200);
+    }
+
+    /* Focus rings */
+    .focus-ring:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px var(--color-malachite-600), 0 0 0 4px white;
+    }
+}
+
+/* Scrollbar styling for light theme */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+}
+
+::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.3);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.5);
+}

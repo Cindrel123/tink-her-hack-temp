@@ -78,10 +78,10 @@ export default function AIAdviceCard({ userId, userProfile, userGoals, userGamif
     }
 
     return (
-        <Card className="w-full bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-950 border-slate-200 dark:border-slate-800 shadow-md transition-all hover:shadow-lg">
+        <Card className="w-full bg-gradient-to-br from-malachite-50 to-white border-neutral-200 shadow-md transition-all hover:shadow-lg">
             <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
                 <div className="space-y-1">
-                    <CardTitle className="text-xl font-bold flex items-center gap-2 text-indigo-600 dark:text-indigo-400">
+                    <CardTitle className="text-xl font-bold flex items-center gap-2 text-malachite-600">
                         <Zap className="h-5 w-5" />
                         AI Financial Mentor
                     </CardTitle>
@@ -93,7 +93,7 @@ export default function AIAdviceCard({ userId, userProfile, userGoals, userGamif
                     variant="outline"
                     size="sm"
                     onClick={handleRefresh}
-                    disabled={loading || !userId}
+                    disabled={loading}
                     className="gap-2"
                 >
                     {loading ? (
@@ -111,18 +111,18 @@ export default function AIAdviceCard({ userId, userProfile, userGoals, userGamif
                         <Button variant="link" onClick={() => setError(null)}>Dismiss</Button>
                     </div>
                 ) : (
-                    <div className="h-[300px] w-full rounded-md border p-4 overflow-y-auto bg-slate-50 dark:bg-slate-900/50">
+                    <div className="h-[300px] w-full rounded-md border border-neutral-200 p-4 overflow-y-auto bg-neutral-50">
                         {loading && !advice ? (
-                            <div className="flex flex-col items-center justify-center h-full text-muted-foreground gap-2">
-                                <Loader2 className="h-8 w-8 animate-spin text-indigo-500" />
+                            <div className="flex flex-col items-center justify-center h-full text-neutral-500 gap-2">
+                                <Loader2 className="h-8 w-8 animate-spin text-malachite-500" />
                                 <p>Analyzing your finances...</p>
                             </div>
                         ) : advice ? (
-                            <div className="prose prose-sm dark:prose-invert max-w-none">
+                            <div className="prose prose-sm prose-neutral max-w-none">
                                 <ReactMarkdown>{advice}</ReactMarkdown>
                             </div>
                         ) : (
-                            <div className="flex flex-col items-center justify-center h-full text-muted-foreground">
+                            <div className="flex flex-col items-center justify-center h-full text-neutral-500">
                                 <p>No advice generated yet.</p>
                                 <Button variant="link" onClick={handleRefresh}>Generate First Report</Button>
                             </div>

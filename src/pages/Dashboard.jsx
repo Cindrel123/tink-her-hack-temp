@@ -40,8 +40,8 @@ export default function Dashboard() {
             />
             <div className="space-y-6">
                 <div>
-                    <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-                    <p className="text-slate-500 dark:text-slate-400 mt-2">
+                    <h1 className="text-3xl font-bold tracking-tight text-neutral-900">Dashboard</h1>
+                    <p className="text-neutral-500 mt-2">
                         Welcome back to your financial journey.
                     </p>
                 </div>
@@ -50,15 +50,15 @@ export default function Dashboard() {
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                     <LevelCard level={level} xp={xp} />
                     <FinancialScoreCard score={score} />
-                    <Card className="border-slate-200 dark:border-slate-800 shadow-sm">
+                    <Card className="border-neutral-200 shadow-sm">
                         <CardHeader className="flex flex-row items-center justify-between pb-2">
-                            <CardTitle className="text-sm font-medium text-slate-500 dark:text-slate-400">
+                            <CardTitle className="text-sm font-medium text-neutral-500">
                                 Total XP
                             </CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{xp} XP</div>
-                            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                            <div className="text-2xl font-bold text-neutral-900">{xp} XP</div>
+                            <p className="text-xs text-neutral-500 mt-1">
                                 Keep earning to level up!
                             </p>
                         </CardContent>
@@ -93,7 +93,7 @@ export default function Dashboard() {
                         </CardHeader>
                         <CardContent>
                             <div className="text-2xl font-bold">$45,231.89</div>
-                            <p className="text-xs text-slate-500">+20.1% from last month</p>
+                            <p className="text-xs text-neutral-500">+20.1% from last month</p>
                         </CardContent>
                     </Card>
                     <Card>
@@ -102,7 +102,7 @@ export default function Dashboard() {
                         </CardHeader>
                         <CardContent>
                             <div className="text-2xl font-bold">$2,350.00</div>
-                            <p className="text-xs text-slate-500">+180.1% from last month</p>
+                            <p className="text-xs text-neutral-500">+180.1% from last month</p>
                         </CardContent>
                     </Card>
                     <Card>
@@ -111,7 +111,7 @@ export default function Dashboard() {
                         </CardHeader>
                         <CardContent>
                             <div className="text-2xl font-bold">4</div>
-                            <p className="text-xs text-slate-500">2 nearing completion</p>
+                            <p className="text-xs text-neutral-500">2 nearing completion</p>
                         </CardContent>
                     </Card>
                     <Card>
@@ -120,7 +120,7 @@ export default function Dashboard() {
                         </CardHeader>
                         <CardContent>
                             <div className="text-2xl font-bold">12</div>
-                            <p className="text-xs text-slate-500">+2 from last month</p>
+                            <p className="text-xs text-neutral-500">+2 from last month</p>
                         </CardContent>
                     </Card>
                 </div>
