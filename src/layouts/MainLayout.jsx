@@ -3,13 +3,14 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/hooks/useAuth'
 import { Button } from '@/components/ui/button'
-import { LayoutDashboard, Target, GraduationCap, Trophy, User, LogOut, Menu } from 'lucide-react'
+import { LayoutDashboard, Target, GraduationCap, Trophy, User, MessageSquare, LogOut, Menu } from 'lucide-react'
 
 const navItems = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard' },
     { icon: Target, label: 'Goals', path: '/goals' },
     { icon: GraduationCap, label: 'Education', path: '/education' },
     { icon: Trophy, label: 'Challenges', path: '/challenges' },
+    { icon: MessageSquare, label: 'Mentor', path: '/chat' },
     { icon: User, label: 'Profile', path: '/profile' },
 ]
 

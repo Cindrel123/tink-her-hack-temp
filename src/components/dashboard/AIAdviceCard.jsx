@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { getLatestAdvice, generateFinancialAdvice } from '@/services/aiService'
+import { useNavigate } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
-import { Loader2, RefreshCw, Zap } from 'lucide-react'
+import { Loader2, RefreshCw, Zap, MessageSquare } from 'lucide-react'
 
 // Mock Data for fallback if user is not authenticated or no data
 const MOCK_ADVICE = `
@@ -24,6 +25,7 @@ Prioritize high-interest debt repayment first. Automate your savings for the "Ne
 `
 
 export default function AIAdviceCard({ userId, userProfile, userGoals, userGamification, userPlan }) {
+    const navigate = useNavigate()
     const [advice, setAdvice] = useState(null)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
@@ -89,20 +91,31 @@ export default function AIAdviceCard({ userId, userProfile, userGoals, userGamif
                         Personalized financial insights based on your profile & goals.
                     </CardDescription>
                 </div>
-                <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={handleRefresh}
-                    disabled={loading}
-                    className="gap-2"
-                >
-                    {loading ? (
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                    ) : (
-                        <RefreshCw className="h-4 w-4" />
-                    )}
-                    {loading ? 'Analyzing...' : 'Refresh Advice'}
-                </Button>
+                <div className="flex gap-2">
+                    <Button
+                        variant="default"
+                        size="sm"
+                        onClick={() => navigate('/chat')}
+                        className="gap-2 bg-malachite-600 hover:bg-malachite-700 text-white shadow-lg shadow-malachite-200"
+                    >
+                        <MessageSquare className="h-4 w-4" />
+                        Chat with AI
+                    </Button>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={handleRefresh}
+                        disabled={loading}
+                        className="gap-2 border-malachite-200 text-malachite-700 hover:bg-malachite-50"
+                    >
+                        {loading ? (
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                        ) : (
+                            <RefreshCw className="h-4 w-4" />
+                        )}
+                        {loading ? 'Analyzing...' : 'Refresh Advice'}
+                    </Button>
+                </div>
             </CardHeader>
             <CardContent>
                 {error ? (

@@ -15,6 +15,7 @@ const Profile = lazy(() => import('@/pages/Profile'))
 const Login = lazy(() => import('@/pages/Login'))
 const Signup = lazy(() => import('@/pages/Signup'))
 const Onboarding = lazy(() => import('@/pages/Onboarding'))
+const Chat = lazy(() => import('@/pages/Chat'))
 
 // Loading fallback component
 const PageLoader = () => (
@@ -68,6 +69,11 @@ function App() {
                 <Route path="/profile" element={
                   <ProtectedRoute>
                     <Profile />
+                  </ProtectedRoute>
+                } />
+                <Route path="/chat" element={
+                  <ProtectedRoute>
+                    <Chat />
                   </ProtectedRoute>
                 } />
               </Routes>

@@ -13,6 +13,23 @@ export async function generateFinancialAdvice(userId, userData = {}) {
     }
 
     try {
+        const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
+        if (!apiKey || apiKey === "" || apiKey === "sk-...") {
+            console.warn("VITE_OPENAI_API_KEY not found or placeholder. Returning mock advice.");
+            await new Promise(resolve => setTimeout(resolve, 2000));
+
+            const { profile = {}, goals = [] } = userData;
+            const income = parseFloat(profile.income || 0);
+
+            return `
+1. **Budget Improvement**: With an income of **$${income.toLocaleString()}**, I recommend following the 50/30/20 rule. Your current spending on 'Wants' could be reduced by $200 each month to accelerate your goals.
+2. **Savings Optimization**: Your current savings ratio is good, but you should aim for a **6-month emergency fund**. Based on your expenses, your target should be around **$15,000**.
+3. **Investment Recommendations**: Since you are in the learning phase, consider low-cost Index Funds or ETFs. They offer great diversification for beginners.
+4. **Goal Achievement Strategy**: For your ${goals[0]?.title || 'active goals'}, I suggest setting up automatic transfers of $100/week to a high-yield savings account.
+5. **Motivation**: "The best time to plant a tree was 20 years ago. The second best time is now." 🚀
+            `;
+        }
+
         console.log("🤖 Generating AI Financial Advice for:", userId)
 
         // Destructure provided data or strictly fetch if not provided (fallback logic)
