@@ -10,7 +10,7 @@ export default function LessonCard({ lesson, userLevel, isCompleted, onStart }) 
     return (
         <Card className={cn(
             "card-nova overflow-hidden transition-all duration-300 relative group border-none shadow-sm hover:shadow-md",
-            isLocked ? "bg-neutral-50/50 opacity-80" : "bg-white",
+            isLocked ? "bg-malachite-50/50 opacity-80" : "bg-white",
             isCompleted && "border-l-4 border-l-malachite-500"
         )}>
             {/* Background Icon (Decorator) */}
@@ -26,23 +26,23 @@ export default function LessonCard({ lesson, userLevel, isCompleted, onStart }) 
                     {isCompleted && <CheckCircle2 className="h-5 w-5 text-malachite-600" />}
                     {isLocked && <Lock className="h-5 w-5 text-neutral-400" />}
                 </div>
-                <CardTitle className="text-xl font-bold text-neutral-900 group-hover:text-malachite-600 transition-colors">
+                <CardTitle className="text-xl font-bold text-malachite-950 group-hover:text-malachite-600 transition-colors">
                     {lesson.title}
                 </CardTitle>
             </CardHeader>
 
             <CardContent>
-                <p className="text-sm text-neutral-500 line-clamp-2 min-h-[40px]">
+                <p className="text-sm text-malachite-500 line-clamp-2 min-h-[40px]">
                     {lesson.description}
                 </p>
 
-                <div className="flex items-center gap-4 mt-6 text-xs font-medium text-neutral-600">
+                <div className="flex items-center gap-4 mt-6 text-xs font-medium text-malachite-600">
                     <div className="flex items-center gap-1">
                         <Trophy className="h-3.5 w-3.5 text-yellow-500" />
                         <span>{lesson.xp_reward} XP</span>
                     </div>
                     <div className="flex items-center gap-1">
-                        <Clock className="h-3.5 w-3.5 text-blue-500" />
+                        <Clock className="h-3.5 w-3.5 text-malachite-500" />
                         <span>5 min</span>
                     </div>
                 </div>

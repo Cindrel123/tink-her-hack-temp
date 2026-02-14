@@ -97,72 +97,80 @@ export default function LessonDialog({ open, onOpenChange, lesson, quizzes = [],
                         </DialogFooter>
                     </>
                 )}
+                {step === 'quiz' && (
+                    quizzes.length > 0 ? (
+                        <>
+                            <DialogHeader>
+                                <div className="flex justify-between items-center mb-2">
+                                    <span className="text-sm text-malachite-500">
+                                        Question {currentQuestion + 1} of {quizzes.length}
+                                    </span>
+                                    <span className="text-sm font-medium text-malachite-600">
+                                        {Math.round(((currentQuestion + 1) / quizzes.length) * 100)}%
+                                    </span>
+                                </div>
+                                <Progress value={((currentQuestion + 1) / quizzes.length) * 100} className="h-2" />
+                                <DialogTitle className="mt-4 text-xl text-malachite-950">
+                                    {quizzes[currentQuestion].question}
+                                </DialogTitle>
+                            </DialogHeader>
 
-                {step === 'quiz' && quizzes.length > 0 && (
-                    <>
-                        <DialogHeader>
-                            <div className="flex justify-between items-center mb-2">
-                                <span className="text-sm text-neutral-500">
-                                    Question {currentQuestion + 1} of {quizzes.length}
-                                </span>
-                                <span className="text-sm font-medium text-malachite-600">
-                                    {Math.round(((currentQuestion + 1) / quizzes.length) * 100)}%
-                                </span>
+                            <div className="py-6 space-y-4">
+                                <RadioGroup
+                                    value={answers[currentQuestion]}
+                                    onValueChange={handleAnswer}
+                                    className="space-y-3"
+                                >
+                                    {quizzes[currentQuestion].options.map((option, idx) => (
+                                        <div key={idx} className="flex items-center space-x-2 border p-4 rounded-lg hover:bg-malachite-50 cursor-pointer transition-colors has-[:checked]:bg-malachite-50 has-[:checked]:border-malachite-200">
+                                            <RadioGroupItem value={option} id={`option-${idx}`} />
+                                            <Label htmlFor={`option-${idx}`} className="flex-1 cursor-pointer font-medium">
+                                                {option}
+                                            </Label>
+                                        </div>
+                                    ))}
+                                </RadioGroup>
                             </div>
-                            <Progress value={((currentQuestion + 1) / quizzes.length) * 100} className="h-2" />
-                            <DialogTitle className="mt-4 text-xl">
-                                {quizzes[currentQuestion].question}
-                            </DialogTitle>
-                        </DialogHeader>
 
-                        <div className="py-6 space-y-4">
-                            <RadioGroup
-                                value={answers[currentQuestion]}
-                                onValueChange={handleAnswer}
-                                className="space-y-3"
-                            >
-                                {quizzes[currentQuestion].options.map((option, idx) => (
-                                    <div key={idx} className="flex items-center space-x-2 border p-4 rounded-lg hover:bg-neutral-50 cursor-pointer transition-colors has-[:checked]:bg-malachite-50 has-[:checked]:border-malachite-200">
-                                        <RadioGroupItem value={option} id={`option-${idx}`} />
-                                        <Label htmlFor={`option-${idx}`} className="flex-1 cursor-pointer font-medium">
-                                            {option}
-                                        </Label>
-                                    </div>
-                                ))}
-                            </RadioGroup>
+                            <DialogFooter className="flex justify-between sm:justify-between">
+                                <Button
+                                    variant="outline"
+                                    onClick={() => setCurrentQuestion(Math.max(0, currentQuestion - 1))}
+                                    disabled={currentQuestion === 0}
+                                >
+                                    <ArrowLeft className="mr-2 h-4 w-4" /> Previous
+                                </Button>
+                                <Button
+                                    onClick={handleNextQuestion}
+                                    disabled={!answers[currentQuestion]}
+                                    className="bg-malachite-600 hover:bg-malachite-700 text-white"
+                                >
+                                    {currentQuestion === quizzes.length - 1 ? 'Finish' : 'Next'} <ArrowRight className="ml-2 h-4 w-4" />
+                                </Button>
+                            </DialogFooter>
+                        </>
+                    ) : (
+                        <div className="text-center py-12 bg-malachite-50 rounded-2xl border border-malachite-100">
+                            <Trophy className="h-12 w-12 text-malachite-400 mx-auto mb-4" />
+                            <h3 className="text-lg font-bold text-malachite-950">Quiz Not Ready</h3>
+                            <p className="text-sm text-malachite-500 mb-6">This quiz is still being prepared by our educators.</p>
+                            <Button onClick={() => onOpenChange(false)} className="bg-malachite-600 hover:bg-malachite-700">Close</Button>
                         </div>
-
-                        <DialogFooter className="flex justify-between sm:justify-between">
-                            <Button
-                                variant="outline"
-                                onClick={() => setCurrentQuestion(Math.max(0, currentQuestion - 1))}
-                                disabled={currentQuestion === 0}
-                            >
-                                <ArrowLeft className="mr-2 h-4 w-4" /> Previous
-                            </Button>
-                            <Button
-                                onClick={handleNextQuestion}
-                                disabled={!answers[currentQuestion]}
-                                className="bg-malachite-600 hover:bg-malachite-700 text-white"
-                            >
-                                {currentQuestion === quizzes.length - 1 ? 'Finish' : 'Next'} <ArrowRight className="ml-2 h-4 w-4" />
-                            </Button>
-                        </DialogFooter>
-                    </>
+                    )
                 )}
 
                 {step === 'result' && (
                     <div className="text-center py-8 space-y-6">
-                        <div className={`mx-auto h-24 w-24 rounded-full flex items-center justify-center ${passed ? 'bg-malachite-100 text-malachite-600' : 'bg-red-100 text-red-600'}`}>
+                        <div className={`mx-auto h-24 w-24 rounded-full flex items-center justify-center ${passed ? 'bg-malachite-100 text-malachite-600' : 'bg-destructive text-destructive-foreground'}`}>
                             {passed ? <Trophy className="h-12 w-12" /> : <CheckCircle2 className="h-12 w-12" />}
                         </div>
 
                         <div className="space-y-2">
-                            <h2 className="text-3xl font-bold text-neutral-900">
+                            <h2 className="text-3xl font-bold text-malachite-950">
                                 {passed ? "Quiz Completed!" : "Keep Trying!"}
                             </h2>
-                            <p className="text-neutral-500">
-                                You scored <span className="font-bold text-neutral-900">{score}%</span>
+                            <p className="text-malachite-500">
+                                You scored <span className="font-bold text-malachite-950">{score}%</span>
                             </p>
                         </div>
 
@@ -172,7 +180,7 @@ export default function LessonDialog({ open, onOpenChange, lesson, quizzes = [],
                                 <div className="text-3xl font-bold text-malachite-600">+{lesson.xp_reward} XP</div>
                             </div>
                         ) : (
-                            <div className="bg-red-50 p-4 rounded-xl border border-red-100 max-w-sm mx-auto text-sm text-red-600">
+                            <div className="bg-destructive/10 p-4 rounded-xl border border-destructive/20 max-w-sm mx-auto text-sm text-destructive">
                                 You need 70% to pass. Review the material and try again!
                             </div>
                         )}
@@ -183,7 +191,7 @@ export default function LessonDialog({ open, onOpenChange, lesson, quizzes = [],
                                     Review Content
                                 </Button>
                             )}
-                            <Button onClick={() => onOpenChange(false)} className="bg-neutral-900 hover:bg-neutral-800 text-white min-w-[200px]">
+                            <Button onClick={() => onOpenChange(false)} className="bg-malachite-950 hover:bg-malachite-900 text-white min-w-[200px]">
                                 {passed ? "Collect Rewards & Close" : "Close"}
                             </Button>
                         </DialogFooter>
