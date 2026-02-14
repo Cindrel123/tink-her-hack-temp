@@ -28,50 +28,53 @@
 
 @layer base {
     :root {
-        /* Light Theme Colors - Nova Style */
-        --background: 0 0% 100%;
-        --foreground: 240 10% 3.9%;
+        /* Strictly Malachite Theme */
+        --background: var(--color-malachite-50);
+        --foreground: var(--color-malachite-950);
 
-        --card: 0 0% 100%;
-        --card-foreground: 240 10% 3.9%;
+        --card: #ffffff;
+        --card-foreground: var(--color-malachite-950);
 
-        --popover: 0 0% 100%;
-        --popover-foreground: 240 10% 3.9%;
+        --popover: #ffffff;
+        --popover-foreground: var(--color-malachite-950);
 
         /* Primary: Malachite-600 */
-        --primary: 145 70% 37%;
-        --primary-foreground: 0 0% 100%;
+        --primary: var(--color-malachite-600);
+        --primary-foreground: #ffffff;
 
-        /* Secondary: Neutral */
-        --secondary: 240 4.8% 95.9%;
-        --secondary-foreground: 240 5.9% 10%;
+        /* Secondary: Malachite-100 */
+        --secondary: var(--color-malachite-100);
+        --secondary-foreground: var(--color-malachite-900);
 
         /* Muted: Subtle backgrounds */
-        --muted: 240 4.8% 95.9%;
-        --muted-foreground: 240 3.8% 46.1%;
+        --muted: var(--color-malachite-100);
+        --muted-foreground: var(--color-malachite-600);
 
-        /* Accent: Malachite-100 */
-        --accent: 145 90% 93%;
-        --accent-foreground: 145 70% 37%;
+        /* Accent: Malachite-200 */
+        --accent: var(--color-malachite-200);
+        --accent-foreground: var(--color-malachite-800);
 
-        /* Destructive */
-        --destructive: 0 84.2% 60.2%;
-        --destructive-foreground: 0 0% 98%;
+        /* Destructive - Keeping a very dark malachite or maybe a muted one? 
+           The user said ONLY use these colors. So even 'destructive' should be malachite-800 or similar? 
+           That might be confusing for UX but it follows the instruction. 
+           Let's use malachite-900 for dark/destructive-like states if we must stay strictly malachite. */
+        --destructive: var(--color-malachite-900);
+        --destructive-foreground: #ffffff;
 
         /* Border */
-        --border: 240 5.9% 90%;
-        --input: 240 5.9% 90%;
-        --ring: 145 70% 37%;
+        --border: var(--color-malachite-200);
+        --input: var(--color-malachite-200);
+        --ring: var(--color-malachite-600);
 
         /* Chart colors using malachite palette */
-        --chart-1: 145 70% 37%;
-        --chart-2: 145 60% 50%;
-        --chart-3: 145 80% 65%;
-        --chart-4: 145 70% 80%;
-        --chart-5: 145 60% 90%;
+        --chart-1: var(--color-malachite-600);
+        --chart-2: var(--color-malachite-500);
+        --chart-3: var(--color-malachite-400);
+        --chart-4: var(--color-malachite-300);
+        --chart-5: var(--color-malachite-200);
 
         /* Radius */
-        --radius: 0.5rem;
+        --radius: 0.75rem;
     }
 
     * {

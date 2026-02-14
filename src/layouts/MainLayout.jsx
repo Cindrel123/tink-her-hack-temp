@@ -26,47 +26,49 @@ export default function MainLayout({ children }) {
     const NavIcon = ({ item, isActive }) => (
         <Link to={item.path} title={item.label}>
             <div className={cn(
-                "h-12 w-12 flex items-center justify-center rounded-xl transition-all duration-300 relative group",
+                "h-12 w-12 flex items-center justify-center rounded-2xl transition-all duration-500 ease-out relative group",
                 isActive
-                    ? "bg-malachite-600 text-white shadow-lg shadow-malachite-200 scale-110"
-                    : "text-neutral-400 hover:text-malachite-600 hover:bg-malachite-50 hover:scale-105"
+                    ? "bg-malachite-600 text-white shadow-lg shadow-malachite-300/50 scale-110"
+                    : "text-malachite-400 hover:text-malachite-600 hover:bg-malachite-50/80 hover:scale-105 active:scale-95"
             )}>
-                <item.icon className="h-6 w-6" />
-                {/* Tooltip-like label */}
+                <item.icon className={cn(
+                    "h-5 w-5 transition-all duration-500 ease-out",
+                    isActive ? "scale-110" : "group-hover:scale-110 group-hover:rotate-6"
+                )} />
+
+                {/* Tooltip - Positioned above navbar */}
                 <div className={cn(
-                    "absolute opacity-0 group-hover:opacity-100 transition-opacity bg-neutral-900 text-white text-xs px-2 py-1 rounded whitespace-nowrap pointer-events-none z-50",
-                    // Position based on layout (right for desktop, top for mobile)
-                    "left-14 top-1/2 -translate-y-1/2 bg-neutral-900/90 backdrop-blur-sm hidden lg:block", // Desktop
-                    "-top-10 left-1/2 -translate-x-1/2 lg:hidden" // Mobile
+                    "absolute -top-12 left-1/2 -translate-x-1/2",
+                    "opacity-0 group-hover:opacity-100 group-hover:-translate-y-1",
+                    "transition-all duration-300 ease-out",
+                    "bg-malachite-950/95 backdrop-blur-sm text-white text-xs font-medium px-3 py-1.5 rounded-lg",
+                    "whitespace-nowrap pointer-events-none z-50",
+                    "shadow-lg shadow-malachite-950/20"
                 )}>
                     {item.label}
+                    {/* Arrow pointing down */}
+                    <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-malachite-950/95 rotate-45"></div>
                 </div>
             </div>
         </Link>
     )
 
     return (
-        <div className="min-h-screen bg-neutral-50 font-sans selection:bg-malachite-100 selection:text-malachite-900 pb-24 lg:pb-0">
+        <div className="min-h-screen bg-malachite-200/50 font-sans selection:bg-malachite-100 selection:text-malachite-900 pb-28">
 
-            {/* FLOATING NAVBAR */}
-            <nav className="fixed z-50 transition-all duration-500 ease-out
-                /* Desktop: Vertical Left Center */
-                lg:left-6 lg:top-1/2 lg:-translate-y-1/2 lg:w-20 lg:h-auto lg:flex-col
-                /* Mobile: Horizontal Bottom Center */
-                bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-md h-20 flex-row
-                
-                bg-white/90 backdrop-blur-xl border border-white/20 shadow-2xl shadow-neutral-200/50 rounded-3xl flex items-center justify-between p-4 lg:py-6
+            {/* FLOATING NAVBAR - CENTERED AT BOTTOM */}
+            <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 
+                w-[90%] max-w-md
+                bg-white/95 backdrop-blur-xl 
+                border border-malachite-200/50 
+                shadow-2xl shadow-malachite-900/10 
+                rounded-full 
+                px-6 py-4
+                transition-all duration-500 ease-out
+                hover:shadow-3xl hover:scale-[1.02]
             ">
-
-                {/* Logo / Brand Icon (Desktop Top) */}
-                <div className="hidden lg:flex items-center justify-center mb-6 w-full">
-                    <div className="h-10 w-10 bg-malachite-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-malachite-200">
-                        <LayoutDashboard className="h-5 w-5" />
-                    </div>
-                </div>
-
                 {/* Navigation Items */}
-                <div className="flex flex-row lg:flex-col items-center justify-around w-full gap-2 lg:gap-6">
+                <div className="flex flex-row items-center justify-around gap-2">
                     {navItems.map((item) => (
                         <NavIcon
                             key={item.path}
@@ -75,16 +77,19 @@ export default function MainLayout({ children }) {
                         />
                     ))}
 
-                    {/* Divider for Mobile (Hidden) / Visible for Desktop */}
-                    <div className="hidden lg:block w-8 h-[1px] bg-neutral-200 my-2"></div>
+                    {/* Divider */}
+                    <div className="h-8 w-[1px] bg-malachite-200"></div>
 
                     {/* Logout Button */}
                     <button
                         onClick={handleLogout}
                         title="Logout"
-                        className="h-12 w-12 flex items-center justify-center rounded-xl text-neutral-400 hover:text-red-500 hover:bg-red-50 transition-all duration-300"
+                        className="h-12 w-12 flex items-center justify-center rounded-xl 
+                            text-malachite-400 hover:text-malachite-900 hover:bg-malachite-100 
+                            transition-all duration-300 ease-out
+                            hover:scale-110 active:scale-95"
                     >
-                        <LogOut className="h-6 w-6" />
+                        <LogOut className="h-5 w-5 transition-transform duration-300" />
                     </button>
                 </div>
             </nav>
@@ -92,12 +97,12 @@ export default function MainLayout({ children }) {
             {/* MAIN CONTENT AREA */}
             <main className="transition-all duration-300 min-h-screen">
                 {/* Desktop Header (Simplified) */}
-                <header className="hidden lg:flex h-20 px-8 lg:pl-32 items-center justify-between sticky top-0 z-20 bg-neutral-50/80 backdrop-blur-sm">
+                <header className="hidden lg:flex h-20 px-8 items-center justify-between sticky top-0 z-20 bg-malachite-50/80 backdrop-blur-sm">
                     <div>
-                        <h2 className="text-2xl font-bold text-neutral-900 capitalize tracking-tight">
+                        <h2 className="text-2xl font-bold text-malachite-950 capitalize tracking-tight">
                             {location.pathname.split('/')[1] || 'Dashboard'}
                         </h2>
-                        <p className="text-sm text-neutral-500 font-medium">Manage your financial lifestyle</p>
+                        <p className="text-sm text-malachite-500 font-medium">Manage your financial lifestyle</p>
                     </div>
 
                     <div className="flex items-center gap-4">
@@ -105,7 +110,7 @@ export default function MainLayout({ children }) {
                             <div className="h-8 w-8 rounded-full bg-malachite-100 flex items-center justify-center text-malachite-700 font-bold text-xs ring-2 ring-white">
                                 {user?.email?.charAt(0).toUpperCase() || 'U'}
                             </div>
-                            <span className="text-sm font-medium text-neutral-700 pr-2">
+                            <span className="text-sm font-medium text-malachite-700 pr-2">
                                 {user?.email?.split('@')[0] || 'User'}
                             </span>
                         </div>
@@ -113,7 +118,7 @@ export default function MainLayout({ children }) {
                 </header>
 
                 {/* Content Container */}
-                <div className="container mx-auto p-4 lg:p-8 lg:pl-32 max-w-7xl animate-in fade-in slide-in-from-bottom-8 duration-700">
+                <div className="container mx-auto p-4 lg:p-8 max-w-7xl animate-in fade-in slide-in-from-bottom-8 duration-700">
                     {children}
                 </div>
             </main>

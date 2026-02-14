@@ -97,11 +97,11 @@ export default function Education() {
                 {/* Header Section with Stats */}
                 <div className="flex flex-col md:flex-row gap-6 justify-between items-start md:items-end">
                     <div>
-                        <h1 className="text-3xl font-bold tracking-tight text-neutral-900 flex items-center gap-2">
+                        <h1 className="text-3xl font-bold tracking-tight text-malachite-950 flex items-center gap-2">
                             <GraduationCap className="h-8 w-8 text-malachite-600" />
                             Financial Academy
                         </h1>
-                        <p className="text-neutral-500 mt-2 max-w-xl">
+                        <p className="text-malachite-500 mt-2 max-w-xl">
                             Master your money with bite-sized lessons. Complete quizzes to earn XP, level up, and unlock advanced topics.
                         </p>
                     </div>
@@ -109,7 +109,7 @@ export default function Education() {
 
                 {/* Progress Overview Card */}
                 {/* Progress Overview Card */}
-                <Card className="bg-white text-neutral-900 border-none shadow-lg overflow-hidden relative card-nova">
+                <Card className="bg-white text-malachite-950 border-none shadow-lg overflow-hidden relative card-nova">
                     {/* Decorative Background */}
                     <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none">
                         <GraduationCap className="h-64 w-64 text-malachite-600 transform rotate-12" />
@@ -121,24 +121,24 @@ export default function Education() {
                                 <Trophy className="h-4 w-4" />
                                 <span>Level {level} Scholar</span>
                             </div>
-                            <h2 className="text-3xl font-bold text-neutral-900">Your Learning Path</h2>
+                            <h2 className="text-3xl font-bold text-malachite-950">Your Learning Path</h2>
                             <div className="space-y-2 max-w-md">
                                 <div className="flex justify-between text-sm font-medium">
-                                    <span className="text-neutral-500">{completedCount} of {totalLessons} Lessons Completed</span>
-                                    <span className="text-neutral-900">{Math.round(completionPercentage)}%</span>
+                                    <span className="text-malachite-500">{completedCount} of {totalLessons} Lessons Completed</span>
+                                    <span className="text-malachite-950">{Math.round(completionPercentage)}%</span>
                                 </div>
-                                <Progress value={completionPercentage} className="h-3 bg-neutral-100" indicatorColor="bg-malachite-600" />
+                                <Progress value={completionPercentage} className="h-3 bg-malachite-100" indicatorColor="bg-malachite-600" />
                             </div>
                         </div>
 
                         <div className="flex gap-4">
-                            <div className="bg-white p-4 rounded-xl border border-neutral-200 shadow-sm text-center min-w-[120px]">
-                                <div className="text-3xl font-bold text-neutral-900">{totalXPEarned}</div>
-                                <div className="text-xs text-neutral-500 uppercase tracking-wider mt-1 font-semibold">XP Earned</div>
+                            <div className="bg-white p-4 rounded-xl border border-malachite-200 shadow-sm text-center min-w-[120px]">
+                                <div className="text-3xl font-bold text-malachite-950">{totalXPEarned}</div>
+                                <div className="text-xs text-malachite-500 uppercase tracking-wider mt-1 font-semibold">XP Earned</div>
                             </div>
-                            <div className="bg-white p-4 rounded-xl border border-neutral-200 shadow-sm text-center min-w-[120px]">
+                            <div className="bg-white p-4 rounded-xl border border-malachite-200 shadow-sm text-center min-w-[120px]">
                                 <div className="text-3xl font-bold text-malachite-600">{completedCount}</div>
-                                <div className="text-xs text-neutral-500 uppercase tracking-wider mt-1 font-semibold">Badges</div>
+                                <div className="text-xs text-malachite-500 uppercase tracking-wider mt-1 font-semibold">Badges</div>
                             </div>
                         </div>
                     </CardContent>
@@ -169,11 +169,11 @@ export default function Education() {
                 {/* Empty State */}
                 {!loading && lessons.length === 0 && (
                     <div className="text-center py-12">
-                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-neutral-100 mb-4">
-                            <BookOpen className="h-8 w-8 text-neutral-400" />
+                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-malachite-100 mb-4">
+                            <BookOpen className="h-8 w-8 text-malachite-400" />
                         </div>
-                        <h3 className="text-lg font-medium text-neutral-900">No lessons available</h3>
-                        <p className="text-neutral-500 mt-2">Check back later for new content!</p>
+                        <h3 className="text-lg font-medium text-malachite-950">No lessons available</h3>
+                        <p className="text-malachite-500 mt-2">Check back later for new content!</p>
                     </div>
                 )}
             </div>
