@@ -103,13 +103,13 @@ API Tunneling: The software uses HTTPS requests (Port 443) to communicate with e
 
 **System Architecture:**
 
-![Architecture Diagram](docs/architecture.png)
-*Explain your system architecture - components, data flow, tech stack interaction*
+![System Architecture](images/systemarch.png)
+*Our system architecture utilizes React for a dynamic frontend, Supabase for secure backend services, and Google Gemini for intelligent financial processing.*
 
 **Application Workflow:**
 
-![Workflow](docs/workflow.png)
-*Add caption explaining your workflow*
+![Application Workflow](images/workflow.png)
+*The intuitive application workflow guides users from initial profile setup through financial planning to real-time AI mentorship and goal achievement.*
 
 ---
 
@@ -144,37 +144,38 @@ API Tunneling: The software uses HTTPS requests (Port 443) to communicate with e
 
 #### API Documentation
 
-**Base URL:** `https://api.yourproject.com`
+**Base URL:** `Cloud Service Gateways (Supabase & Google AI)`
 
-##### Endpoints
+##### Key Service Integrations
 
-**GET /api/endpoint**
-- **Description:** [What it does]
-- **Parameters:**
-  - `param1` (string): [Description]
-  - `param2` (integer): [Description]
+**Supabase Auth & Database (RPC/REST)**
+- **Description:** Handles all user authentication and secure data persistence for financial profiles, goal progress, and chat history.
+- **Key Tables:**
+  - `profiles`: User core data and financial stats.
+  - `goals`: Individual financial targets and progress tracking.
+  - `chat_messages`: Persistence for AI mentor conversations.
+- **Security:** Protected by Row Level Security (RLS) and JWT authentication.
+
+**Google Gemini API (POST /v1beta/models/gemini-1.5-flash:generateContent)**
+- **Description:** Generates intelligent, data-aware financial mentorship responses.
+- **Request Body (AI Mentor Context):**
+```json
+{
+  "contents": [{
+    "parts": [{
+      "text": "System instructions + User financial data + User question"
+    }]
+  }]
+}
+```
 - **Response:**
 ```json
 {
-  "status": "success",
-  "data": {}
-}
-```
-
-**POST /api/endpoint**
-- **Description:** [What it does]
-- **Request Body:**
-```json
-{
-  "field1": "value1",
-  "field2": "value2"
-}
-```
-- **Response:**
-```json
-{
-  "status": "success",
-  "message": "Operation completed"
+  "candidates": [{
+    "content": {
+      "parts": [{ "text": "Personalized financial advice..." }]
+    }
+  }]
 }
 ```
 
@@ -368,7 +369,7 @@ python script.py -v --format json data.json
 ## Project Demo
 
 ### Video
-[Add your demo video link here - YouTube, Google Drive, etc.]
+https://drive.google.com/drive/folders/1yTaLubt-6lMPGvvl8V_PhDdbKbXBtC2E
 
 *Explain what the video demonstrates - key features, user flow, technical highlights*
 
