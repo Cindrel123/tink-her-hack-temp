@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import MainLayout from '@/layouts/MainLayout'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -12,11 +13,12 @@ import BadgeGrid from '@/components/gamification/BadgeGrid'
 import RewardDialog from '@/components/gamification/RewardDialog'
 import FinancialPlanCard from '@/components/financial/FinancialPlanCard'
 import EducationProgressCard from '@/components/education/EducationProgressCard'
-import { DollarSign, TrendingUp, PiggyBank, Target, Trophy, Zap } from 'lucide-react'
+import { DollarSign, TrendingUp, PiggyBank, Target, Trophy, Zap, Flame } from 'lucide-react'
 
 export default function Dashboard() {
+    const navigate = useNavigate()
     const { user } = useAuth()
-    const { xp, level, score, badges, showReward, setShowReward, rewardMessage } = useGamification()
+    const { xp, level, score, badges, showReward, setShowReward, rewardMessage, streak } = useGamification()
     const { financialPlan } = useFinancialCalculator()
     const [goals, setGoals] = useState([])
     const [profile, setProfile] = useState({})
@@ -101,19 +103,19 @@ export default function Dashboard() {
                         </CardContent>
                     </Card>
 
-                    {/* Stat 4 */}
-                    <Card className="card-nova border-none shadow-sm">
+                    {/* Stat 4 - REPLACED with Streak */}
+                    <Card className="card-nova border-none shadow-sm bg-orange-50/50">
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium text-neutral-500">Challenges Won</CardTitle>
-                            <div className="h-8 w-8 rounded-full bg-purple-50 flex items-center justify-center text-purple-600">
-                                <Trophy className="h-4 w-4" />
+                            <CardTitle className="text-sm font-medium text-orange-700">Daily Streak</CardTitle>
+                            <div className="h-8 w-8 rounded-full bg-orange-100 flex items-center justify-center text-orange-600">
+                                <Flame className={`h-4 w-4 ${streak > 0 ? 'animate-pulse' : ''}`} />
                             </div>
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold text-neutral-900">12</div>
-                            <p className="text-xs text-malachite-600 flex items-center mt-1">
-                                <TrendingUp className="h-3 w-3 mr-1" />
-                                +2 from last month
+                            <div className="text-2xl font-bold text-neutral-900">{streak} Days</div>
+                            <p className="text-xs text-orange-600 flex items-center mt-1">
+                                <Zap className="h-3 w-3 mr-1" />
+                                Keep it up for 2x XP!
                             </p>
                         </CardContent>
                     </Card>
@@ -153,6 +155,26 @@ export default function Dashboard() {
 
                     {/* RIGHT COLUMN (Narrow) */}
                     <div className="lg:col-span-4 space-y-8">
+
+
+                        {/* Daily Challenge Widget */}
+                        <Card className="bg-white border-malachite-200 border-2 shadow-md transform transition-all hover:scale-[1.02] hover:shadow-lg cursor-pointer" onClick={() => navigate('/challenges')}>
+                            <CardHeader className="pb-2">
+                                <CardTitle className="text-lg flex items-center gap-2 text-neutral-900">
+                                    <div className="h-8 w-8 rounded-full bg-malachite-100 flex items-center justify-center">
+                                        <Target className="h-5 w-5 text-malachite-600" />
+                                    </div>
+                                    Daily Challenge
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-neutral-600 text-sm mb-4">Complete your daily login and check your budget.</p>
+                                <div className="flex items-center justify-between">
+                                    <span className="text-xs font-bold bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full border border-yellow-200">+10 XP Reward</span>
+                                    <Button size="sm" className="h-8 bg-malachite-600 hover:bg-malachite-700 text-white">Start</Button>
+                                </div>
+                            </CardContent>
+                        </Card>
 
                         {/* Education Progress Widget */}
                         <div className="transform transition-all duration-300 hover:scale-[1.02]">

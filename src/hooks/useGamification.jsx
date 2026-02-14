@@ -1,4 +1,7 @@
 import { useState, useEffect, useContext, createContext } from 'react'
+import { supabase } from '@/lib/supabase'
+import { useAuth } from '@/hooks/useAuth'
+import { challengesService } from '@/services/challengesService'
 
 const GamificationContext = createContext({})
 
@@ -6,6 +9,8 @@ const GamificationContext = createContext({})
 const LEVELS = [0, 100, 300, 700, 1500, 3000, 5000, 8000, 12000, 20000]
 
 export const GamificationProvider = ({ children }) => {
+    const { user } = useAuth()
+
     // Current Gamification State
     const [xp, setXP] = useState(0)
     const [level, setLevel] = useState(1)
@@ -17,32 +22,78 @@ export const GamificationProvider = ({ children }) => {
     const [showReward, setShowReward] = useState(false)
     const [rewardMessage, setRewardMessage] = useState('')
 
-    // Load Initial State
+    // Load Initial State & Check Streak
     useEffect(() => {
-        const storedGamification = localStorage.getItem('gamification')
-        if (storedGamification) {
-            const data = JSON.parse(storedGamification)
-            setXP(data.xp || 0)
-            setLevel(data.level || 1)
-            setScore(data.score || 0)
-            setBadges(data.badges || [])
-            setStreak(data.streak || 0)
-        } else {
-            // New User Setup
-            setXP(0)
-            setLevel(1)
-            setScore(0)
-            setBadges([])
-            setStreak(1) // Start with 1 day streak
-            saveState({ xp: 0, level: 1, score: 0, badges: [], streak: 1 })
+        const loadGamificationData = async () => {
+            // 1. Try Local Storage first for instant UI
+            const stored = localStorage.getItem('gamification')
+            if (stored) {
+                const data = JSON.parse(stored)
+                setXP(data.xp || 0)
+                setLevel(data.level || 1)
+                setScore(data.score || 0)
+                setBadges(data.badges || [])
+                setStreak(data.streak || 0)
+            }
+
+            // 2. If User is logged in, Sync with Supabase & Check Daily Streak
+            if (user) {
+                try {
+                    // Check Streak using Service Logic
+                    const { streak: newStreak, new: isNewDay, bonusXP } = await challengesService.checkDailyStreak(user.id)
+
+                    if (isNewDay) {
+                        setStreak(newStreak)
+                        if (bonusXP > 0) {
+                            addXP(bonusXP) // This handles local state & notification
+                            setRewardMessage(`Daily Streak Bonus: +${bonusXP} XP!`)
+                            setShowReward(true)
+                        }
+                    } else {
+                        // Just sync if not new day (or if streak was 0)
+                        setStreak(newStreak)
+                    }
+
+                    // Fetch full profile to verify transparency
+                    let { data: profile } = await supabase
+                        .from('gamification')
+                        .select('*')
+                        .eq('user_id', user.id)
+                        .single()
+
+                    if (profile) {
+                        setXP(profile.xp)
+                        setLevel(profile.level)
+                        // If service updated streak, profile.streak_days should match
+                        if (!isNewDay) setStreak(profile.streak_days)
+
+                        saveState({ xp: profile.xp, level: profile.level, score: profile.score, badges: [], streak: profile.streak_days })
+                    }
+                } catch (err) {
+                    console.warn("Failed to sync gamification with Supabase:", err)
+                }
+            }
         }
 
-        // Calculate Score on load
+        loadGamificationData()
         calculateScore()
-    }, [])
+    }, [user])
 
     const saveState = (newState) => {
         localStorage.setItem('gamification', JSON.stringify(newState))
+        // Ideally sync to Supabase here too
+        if (user) {
+            supabase.from('gamification').upsert({
+                user_id: user.id,
+                xp: newState.xp,
+                level: newState.level,
+                score: newState.score,
+                streak_days: newState.streak,
+                updated_at: new Date().toISOString()
+            }).then(({ error }) => {
+                if (error) console.error("Failed to save gamification to DB", error)
+            })
+        }
     }
 
     const calculateScore = () => {
@@ -67,8 +118,6 @@ export const GamificationProvider = ({ children }) => {
         newScore = Math.min(newScore, 100)
 
         setScore(newScore)
-        // Update local storage inside saveState would be cleaner, but simple state update is fine here
-        // as we re-calc on load.
     }
 
     const addXP = (amount) => {
@@ -89,7 +138,7 @@ export const GamificationProvider = ({ children }) => {
             setShowReward(true)
             setRewardMessage(`You've reached Level ${newLevel}!`)
 
-            // Check Level Badge
+            // Check Level Badge (Example: Unlock at Level 3)
             if (newLevel === 3) {
                 unlockBadge("Wealth Explorer", "Reach Level 3")
             }
